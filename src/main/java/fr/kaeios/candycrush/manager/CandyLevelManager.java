@@ -7,12 +7,11 @@ import fr.kaeios.candycrush.game.elements.CandyLevel;
 import fr.kaeios.candycrush.game.elements.CandyLevelTypeAdapter;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-
+import java.util.ArrayList;
+import java.util.List;
 public class CandyLevelManager {
 
-    private final Map<Integer, CandyLevel> levels = new HashMap<>();
+    private final List<CandyLevel> levels = new ArrayList<>();
     private final Gson gson;
 
     public CandyLevelManager(){
@@ -25,15 +24,15 @@ public class CandyLevelManager {
     }
 
     public void addLevel(final CandyLevel level){
-        levels.put(level.getLevel(), level);
+        levels.add(level);
     }
 
     public CandyLevel getCandyLevel(final int level){
-        return levels.get(level);
+        return levels.get(level-1);
     }
 
     public boolean isLevel(final int level){
-        return levels.containsKey(level);
+        return levels.size() >= level;
     }
 
     public void createFolder(){
@@ -67,6 +66,10 @@ public class CandyLevelManager {
         while((line = reader.readLine()) != null) sb.append(line);
         reader.close();
         gson.fromJson(sb.toString(), CandyLevel.class);
+    }
+
+    public List<CandyLevel> getLevels(){
+        return levels;
     }
 
 }

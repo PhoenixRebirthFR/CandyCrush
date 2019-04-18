@@ -2,7 +2,9 @@ package fr.kaeios.candycrush.listeners;
 
 import fr.kaeios.candycrush.game.CandyGame;
 import fr.kaeios.candycrush.game.animations.CandyComboAnimation;
+import fr.kaeios.candycrush.game.elements.CandyLevel;
 import fr.kaeios.candycrush.manager.CandyGameManager;
+import fr.kaeios.candycrush.manager.CandyLevelManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,9 +16,11 @@ import org.bukkit.inventory.ItemStack;
 public final class CandyGameListener implements Listener {
 
     private final CandyGameManager games;
+    private final CandyLevelManager levels;
 
-    public CandyGameListener(final CandyGameManager games) {
+    public CandyGameListener(final CandyGameManager games, CandyLevelManager levels) {
         this.games = games;
+        this.levels = levels;
     }
 
     @EventHandler
@@ -49,7 +53,21 @@ public final class CandyGameListener implements Listener {
             }
             game.setSlotToSwap(-1);
         }
+    }
 
+    @EventHandler
+    public void onClickLevelMenu(final InventoryClickEvent event){
+        final Inventory menu = event.getClickedInventory();
+        if(menu == null) return;
+        final ItemStack item = event.getCurrentItem();
+        if(item == null) return;
+        if(!menu.getName().equalsIgnoreCase("§cLevels §e- §cCandyCrush")) return;
+        event.setCancelled(true);
+        final int level = item.getAmount();
+        if(!levels.isLevel(level)) return;
+        final CandyLevel candyLevel = levels.getCandyLevel(level);
+        event.getWhoClicked().closeInventory();
+        new CandyGame(event.getWhoClicked().getUniqueId(), candyLevel).start();
     }
 
 }

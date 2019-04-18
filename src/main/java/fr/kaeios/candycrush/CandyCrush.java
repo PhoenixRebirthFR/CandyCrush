@@ -1,7 +1,6 @@
 package fr.kaeios.candycrush;
 
 import fr.kaeios.candycrush.commands.CandyCrushCommand;
-import fr.kaeios.candycrush.game.elements.CandyLevel;
 import fr.kaeios.candycrush.listeners.CandyGameListener;
 import fr.kaeios.candycrush.manager.CandyGameManager;
 import fr.kaeios.candycrush.manager.CandyLevelManager;
@@ -26,7 +25,7 @@ public final class CandyCrush extends JavaPlugin {
         getCommand("candycrush").setExecutor(new CandyCrushCommand());
         // Register listeners
         final PluginManager pm = Bukkit.getPluginManager();
-        pm.registerEvents(new CandyGameListener(games), this);
+        pm.registerEvents(new CandyGameListener(games, levels), this);
     }
 
     public static CandyCrush getInstance() {
