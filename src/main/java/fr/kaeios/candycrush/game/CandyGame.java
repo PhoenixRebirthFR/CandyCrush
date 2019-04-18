@@ -7,8 +7,12 @@ import fr.kaeios.candycrush.game.elements.CandyCombo;
 import fr.kaeios.candycrush.game.elements.CandyLevel;
 import fr.kaeios.candycrush.game.elements.CandyType;
 import fr.kaeios.candycrush.game.sounds.CandyMusic;
+import net.minecraft.server.v1_10_R1.ChatMessage;
+import net.minecraft.server.v1_10_R1.EntityPlayer;
+import net.minecraft.server.v1_10_R1.PacketPlayOutOpenWindow;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_10_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -35,7 +39,7 @@ public class CandyGame {
     public CandyGame(final UUID uuid, final CandyLevel level){
         this.uuid = uuid;
         this.level = level;
-        this.menu = Bukkit.createInventory(null, 54, "§cCandyCrush §e(Level - "+ level.getLevel() +")");
+        this.menu = Bukkit.createInventory(getPlayer(), 54, "§eLevel - "+ level.getLevel() +"   §c"+ (level.getMoves()-moves) +" coups");
         // Reset points
         for(int i = 1; i<CandyType.values().length; i++){
             points.put(CandyType.values()[i], 0);
@@ -72,13 +76,14 @@ public class CandyGame {
      */
     public void setMoves(int moves) {
         this.moves = moves;
+        updateTitle();
     }
 
     /**
      * Add a move
      */
     public void addMove(){
-        this.moves++;
+        setMoves(this.moves+1);
     }
 
     /**
@@ -474,6 +479,14 @@ public class CandyGame {
     private CandyType getCandyAt(final int row, final int column){
         // Get candy type at location
         return CandyType.getTypeOf(menu.getItem(getSlotAt(row, column)));
+    }
+
+    private void updateTitle(){
+        EntityPlayer ep = ((CraftPlayer) getPlayer()).getHandle();
+        System.out.println(level.getMoves()-moves);
+        PacketPlayOutOpenWindow packet = new PacketPlayOutOpenWindow(ep.activeContainer.windowId, "minecraft:chest", new ChatMessage("§eLevel - "+ level.getLevel() +"   §c"+ (level.getMoves()-moves) +" coups"), getPlayer().getOpenInventory().getTopInventory().getSize());
+        ep.playerConnection.sendPacket(packet);
+        ep.updateInventory(ep.activeContainer);
     }
 
 }
