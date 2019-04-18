@@ -8,6 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -37,6 +38,8 @@ public class CandyComboAnimation extends CandyAnimation {
             stop();
             return;
         }
+
+        final Inventory menu = game.getMenu();
         // Make combo bright
         if(step%2 == 0){
             // Get all combos
@@ -44,14 +47,14 @@ public class CandyComboAnimation extends CandyAnimation {
                 // get all candies in the combo
                 combo.getCandies().forEach(slot ->{
                     // Enchant all the candies
-                    final ItemStack item = game.getMenu().getItem(slot);
+                    final ItemStack item = menu.getItem(slot);
                     final ItemMeta meta = item.getItemMeta();
                     meta.addEnchant(Enchantment.ARROW_FIRE, 1, true);
                     meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                     item.setItemMeta(meta);
                 });
                 if(combo.getCandies().size() == 5){
-                    final ItemStack item = game.getMenu().getItem(combo.getCandies().get(3));
+                    final ItemStack item = menu.getItem(combo.getCandies().get(3));
                     final ItemMeta meta = item.getItemMeta();
                     meta.removeEnchant(Enchantment.ARROW_FIRE);
                     meta.addEnchant(Enchantment.DAMAGE_ALL, 1, true);
@@ -66,10 +69,10 @@ public class CandyComboAnimation extends CandyAnimation {
         }else if(step%2 == 1){
             // Remove bright item
             IntStream.range(0, 54).forEach(slot ->{
-                if(game.getMenu().getItem(slot) != null && game.getMenu().getItem(slot).getItemMeta().hasEnchant(Enchantment.ARROW_FIRE)){
+                if(menu.getItem(slot) != null && menu.getItem(slot).getItemMeta().hasEnchant(Enchantment.ARROW_FIRE)){
                     game.addPoint(CandyType.getTypeOf(game.getMenu().getItem(slot)));
                     game.updateStatsItem();
-                    game.getMenu().setItem(slot, null);
+                    menu.setItem(slot, null);
                 }
             });
             stop();
