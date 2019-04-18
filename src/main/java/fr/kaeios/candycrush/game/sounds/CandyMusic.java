@@ -20,6 +20,7 @@ public class CandyMusic implements Runnable{
 
     public CandyMusic(final CandyGame game){
         this.game = game;
+        // Create the song
         sounds.add(new Sound(Notes.C, 3));
         sounds.add(new Sound(Notes.C, 3));
         sounds.add(new Sound(Notes.G, 3));
@@ -36,23 +37,33 @@ public class CandyMusic implements Runnable{
         sounds.add(new Sound(Notes.C, 6));
     }
 
+    /**
+     * Start the song
+     */
     public void start(){
         taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(CandyCrush.getInstance(), this, tickSpeed, tickSpeed);
     }
 
+    /**
+     * Stop the song
+     */
     public void stop(){
         Bukkit.getScheduler().cancelTask(taskId);
     }
 
+    // Play the song
     @Override
     public void run() {
         wait--;
+        // Wait for previous note duration
         if(wait == 0){
+            // Get next sound and play it
             final Sound sound = sounds.get(index);
             final Player player = Bukkit.getPlayer(game.getUuid());
             player.playSound(player.getLocation(), org.bukkit.Sound.BLOCK_NOTE_BASEDRUM, 1, sound.getNote().getPitch()/100);
             wait = sound.getDuration();
             index++;
+            // Play sound only once
             if(index >= sounds.size()) stop();
         }
     }

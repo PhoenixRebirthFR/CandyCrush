@@ -32,10 +32,18 @@ public final class CandyCrush extends JavaPlugin {
         return instance;
     }
 
+    /**
+     * Get game manager
+     * @return CandyGameManager
+     */
     public CandyGameManager getGames() {
         return games;
     }
 
+    /**
+     * Get levels manager
+     * @return CandyLevelManager
+     */
     public CandyLevelManager getLevels() {
         return levels;
     }

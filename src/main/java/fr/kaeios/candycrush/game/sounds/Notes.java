@@ -4,6 +4,7 @@ import org.bukkit.Sound;
 
 public enum Notes {
 
+    // Each notes playable
     C(6),
     D(8),
     E(10),
@@ -17,7 +18,10 @@ public enum Notes {
         this.pitch = pitch;
     }
 
-
+    /**
+     * Get pitch needed to play this note
+     * @return pitch of the note
+     */
     public float getPitch() {
         return pitch;
     }

@@ -23,27 +23,49 @@ public class CandyLevelManager {
                 .create();
     }
 
+    /**
+     * Add a new level
+     * @param level level you want to add
+     */
     public void addLevel(final CandyLevel level){
         levels.add(level);
     }
 
+    /**
+     * Get a candy level
+     * @param level level number
+     * @return CandyLevel with this number
+     */
     public CandyLevel getCandyLevel(final int level){
         return levels.get(level-1);
     }
 
+    /**
+     * Check if level number exist
+     * @param level level number
+     * @return true if it exist
+     */
     public boolean isLevel(final int level){
         return levels.size() >= level;
     }
 
-    public void createFolder(){
+
+    private void createFolder(){
         final File folder = new File(CandyCrush.getInstance().getDataFolder(), "levels/");
+        // If folder is not present create it
         if(!folder.exists()) folder.mkdirs();
     }
 
+    /**
+     * Load all levels from files
+     */
     public void loadLevels(){
+        // Level number
         int level = 1;
+        // While level exist as file
         while(isLevelFile(level)){
             try {
+                // Load level file
                 loadLevelFromFile(level);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -52,19 +74,24 @@ public class CandyLevelManager {
         }
     }
 
-    public boolean isLevelFile(final int number){
+    private boolean isLevelFile(final int number){
+        // Check if file exist
         final File file = new File(CandyCrush.getInstance().getDataFolder(), "levels/"+ number +".json");
         return file.exists();
     }
 
-    public void loadLevelFromFile(final int number) throws IOException {
+    private void loadLevelFromFile(final int number) throws IOException {
+        // Get file
         final File file = new File(CandyCrush.getInstance().getDataFolder(), "levels/"+ number +".json");
         if(!file.exists()) return;
+        // Read content
         final BufferedReader reader = new BufferedReader(new FileReader(file));
         final StringBuilder sb = new StringBuilder();
         String line;
+        // put all lines together
         while((line = reader.readLine()) != null) sb.append(line);
         reader.close();
+        // Convert json text to CandyLevel object
         gson.fromJson(sb.toString(), CandyLevel.class);
     }
 

@@ -15,10 +15,13 @@ public final class CandyCrushCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(sender instanceof Player){
+            // Create levels menu
             final Inventory inventory = Bukkit.createInventory(null, 54, "§cLevels §e- §cCandyCrush");
+            // Fill inventory with levels icon
             CandyCrush.getInstance().getLevels().getLevels().forEach(level ->{
                 inventory.setItem(level.getLevel()-1, new ItemStack(Material.STAINED_CLAY, level.getLevel(), (short) 14));
             });
+            // Open inventory
             ((Player) sender).openInventory(inventory);
         }
         return false;

@@ -24,25 +24,34 @@ public class CandyComboAnimation extends CandyAnimation {
     @Override
     public void run() {
         if(shouldStop()) stop();
+        // If no combos are possibles
         if(game.getPossibleCombos().size() == 0){
+            // Check lose
             if(!game.hasMoves() && !game.isWin()) new CandyLoseAnimation(game).start();
+            // Stop animation
             stop();
             return;
         }
+        // Make combo bright
         if(step%2 == 0){
+            // Get all combos
             game.getPossibleCombos().forEach(combo ->{
+                // get all candies in the combo
                 combo.getCandies().forEach(slot ->{
+                    // Enchant all the candies
                     final ItemStack item = game.getMenu().getItem(slot);
                     final ItemMeta meta = item.getItemMeta();
                     meta.addEnchant(Enchantment.ARROW_FIRE, 1, true);
                     meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                     item.setItemMeta(meta);
                 });
+                // Update player inventory to see enchantment properly
                 final Player player = Bukkit.getPlayer(game.getUuid());
                 player.updateInventory();
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING, 1, 1);
             });
         }else if(step%2 == 1){
+            // Remove bright item
             IntStream.range(0, 54).forEach(slot ->{
                 if(game.getMenu().getItem(slot) != null && game.getMenu().getItem(slot).getItemMeta().hasEnchant(Enchantment.ARROW_FIRE)){
                     game.addPoint(CandyType.getTypeOf(game.getMenu().getItem(slot)));
@@ -51,6 +60,7 @@ public class CandyComboAnimation extends CandyAnimation {
                 }
             });
             stop();
+            // Start fall animation
             new CandyFallAnimation(game).start();
         }
         step++;

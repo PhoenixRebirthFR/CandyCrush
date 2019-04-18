@@ -14,20 +14,23 @@ public class CandyFallAnimation extends CandyAnimation{
     @Override
     public void run() {
         if(shouldStop()) stop();
+        // If candy can fall make them fall
         if(game.canCandyFall()){
             game.handleFallCandy();
         }else{
             idle++;
         }
         game.fillTopGaps();
+        // If candy don't fall for 2 ticks
         if(idle >= 2){
+            // Check win
             if(game.isWin()){
                 new CandyWinAnimation(game).start();
                 game.setPlayable(false);
                 stop();
                 return;
             }
-            stop();
+            // Start combo animation
             new CandyComboAnimation(game).start();
         }
     }

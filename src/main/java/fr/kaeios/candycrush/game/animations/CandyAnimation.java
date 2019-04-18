@@ -17,6 +17,9 @@ public abstract class CandyAnimation implements Runnable{
         this.game = game;
     }
 
+    /**
+     * Start animation
+     */
     public void start(){
         stopped = false;
         game.setAnimation(this);
@@ -24,20 +27,35 @@ public abstract class CandyAnimation implements Runnable{
         taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(CandyCrush.getInstance(), this, tickSpeed, tickSpeed);
     }
 
+    /**
+     * Stop animation
+     */
     public void stop(){
         stopped = true;
         Bukkit.getScheduler().cancelTask(taskId);
         game.setPlayable(true);
     }
 
+    /**
+     * Set speed of animation
+     * @param tickSpeed speed
+     */
     protected void setTickSpeed(final int tickSpeed){
         this.tickSpeed = tickSpeed;
     }
 
+    /**
+     * Check if animation should stop
+     * @return true if it should stop
+     */
     public boolean shouldStop(){
         return game.isStopped();
     }
 
+    /**
+     * Check if animation is stopped
+     * @return true if it is
+     */
     public boolean isStopped() {
         return stopped;
     }

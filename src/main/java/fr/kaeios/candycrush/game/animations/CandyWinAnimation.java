@@ -20,11 +20,15 @@ public class CandyWinAnimation extends CandyAnimation{
     public void run() {
         if(shouldStop()) stop();
         step++;
-        if(step > 60) game.stop();
+        // Stop game after 65 ticks
+        if(step > 65) game.stop();
+        // stop filling inventory after slot 53
         if(step > 54) return;
+        // Fill inventory progressively with rainbow glasses
         IntStream.range(0, step).forEach(slot -> game.getMenu().setItem(slot, getRandomGlass()));
     }
 
+    // Get a random colored glass
     private ItemStack getRandomGlass(){
         return new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) new Random().nextInt(7));
     }

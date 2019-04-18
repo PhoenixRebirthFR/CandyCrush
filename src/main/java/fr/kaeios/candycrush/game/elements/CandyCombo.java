@@ -5,6 +5,7 @@ import java.util.List;
 
 public class CandyCombo {
 
+    // Combo directions
     public enum Direction{
         VERTICAL,
         HORIZONTAL
@@ -17,14 +18,17 @@ public class CandyCombo {
         this.direction = direction;
     }
 
+    // Get combo direction
     public Direction getDirection() {
         return direction;
     }
 
+    // Add candy to the combo
     public void addCandy(final int slot){
         candies.add(slot);
     }
 
+    // Get candies in this combo
     public List<Integer> getCandies(){
         return candies;
     }

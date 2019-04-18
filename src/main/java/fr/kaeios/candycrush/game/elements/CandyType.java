@@ -22,10 +22,19 @@ public enum CandyType {
         this.display = display;
     }
 
+    /**
+     * Get color of the candy
+     * @return color number
+     */
     public int getColor() {
         return color;
     }
 
+    /**
+     * Get the candy type of an item
+     * @param item item you want to know the type
+     * @return type of the item
+     */
     public static CandyType getTypeOf(final ItemStack item){
         if(item == null || !item.getType().equals(Material.INK_SACK)) return NONE;
         final short durability = item.getDurability();
@@ -34,11 +43,19 @@ public enum CandyType {
         return NONE;
     }
 
+    /**
+     * Get a random candy type
+     * @return random candy type
+     */
     public static CandyType getRandomCandyType(){
         final int index = new Random().nextInt(CandyType.values().length-1)+1;
         return CandyType.values()[index];
     }
 
+    /**
+     * Get display name of the candy
+     * @return candy display name
+     */
     public String getDisplay() {
         return display;
     }
