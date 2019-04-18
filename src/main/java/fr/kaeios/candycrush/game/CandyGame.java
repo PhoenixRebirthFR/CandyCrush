@@ -503,10 +503,14 @@ public class CandyGame {
         return CandyType.getTypeOf(menu.getItem(getSlotAt(row, column)));
     }
 
+    // Update title of inventory
     private void updateTitle(){
         EntityPlayer ep = ((CraftPlayer) getPlayer()).getHandle();
+        // Create new inventory with packet
         PacketPlayOutOpenWindow packet = new PacketPlayOutOpenWindow(ep.activeContainer.windowId, "minecraft:chest", new ChatMessage("§eLevel - "+ level.getLevel() +"   §c"+ (level.getMoves()-moves) +" coups"), getPlayer().getOpenInventory().getTopInventory().getSize());
+        // Send packet to player
         ep.playerConnection.sendPacket(packet);
+        // Fill client side inventory
         ep.updateInventory(ep.activeContainer);
     }
 
