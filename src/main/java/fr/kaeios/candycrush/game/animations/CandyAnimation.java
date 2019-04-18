@@ -19,9 +19,9 @@ public abstract class CandyAnimation implements Runnable{
 
     public void start(){
         stopped = false;
+        game.setAnimation(this);
         game.setPlayable(false);
         taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(CandyCrush.getInstance(), this, tickSpeed, tickSpeed);
-        game.setAnimation(this);
     }
 
     public void stop(){

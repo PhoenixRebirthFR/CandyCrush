@@ -1,7 +1,6 @@
 package fr.kaeios.candycrush.game.animations;
 
 import fr.kaeios.candycrush.game.CandyGame;
-import org.bukkit.Bukkit;
 
 public class CandyFallAnimation extends CandyAnimation{
 

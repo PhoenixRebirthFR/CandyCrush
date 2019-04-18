@@ -220,6 +220,10 @@ public class CandyGame {
         }
     }
 
+    public boolean hasMoves(){
+        return moves < level.getMoves();
+    }
+
     public List<CandyCombo> getHorizontalCombos(){
         final List<CandyCombo> combos = new ArrayList<>();
         for(int row=0; row<6; row++){

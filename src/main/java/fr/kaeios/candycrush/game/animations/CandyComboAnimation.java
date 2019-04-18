@@ -24,7 +24,11 @@ public class CandyComboAnimation extends CandyAnimation {
     @Override
     public void run() {
         if(shouldStop()) stop();
-        if(game.getPossibleCombos().size() == 0) stop();
+        if(game.getPossibleCombos().size() == 0){
+            if(!game.hasMoves() && !game.isWin()) new CandyLoseAnimation(game).start();
+            stop();
+            return;
+        }
         if(step%2 == 0){
             game.getPossibleCombos().forEach(combo ->{
                 combo.getCandies().forEach(slot ->{
