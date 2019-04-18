@@ -6,7 +6,7 @@ import fr.kaeios.candycrush.CandyCrush;
 import fr.kaeios.candycrush.game.elements.CandyLevel;
 import fr.kaeios.candycrush.game.elements.CandyLevelTypeAdapter;
 
-import java.io.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 public class CandyLevelManager {

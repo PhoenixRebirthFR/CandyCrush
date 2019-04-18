@@ -4,6 +4,7 @@ import fr.kaeios.candycrush.CandyStats;
 import fr.kaeios.candycrush.game.CandyGame;
 import fr.kaeios.candycrush.game.elements.CandyType;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -49,6 +50,14 @@ public class CandyComboAnimation extends CandyAnimation {
                     meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                     item.setItemMeta(meta);
                 });
+                if(combo.getCandies().size() == 5){
+                    final ItemStack item = game.getMenu().getItem(combo.getCandies().get(3));
+                    final ItemMeta meta = item.getItemMeta();
+                    meta.removeEnchant(Enchantment.ARROW_FIRE);
+                    meta.addEnchant(Enchantment.DAMAGE_ALL, 1, true);
+                    meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                    item.setItemMeta(meta);
+                }
                 // Update player inventory to see enchantment properly
                 final Player player = Bukkit.getPlayer(game.getUuid());
                 player.updateInventory();

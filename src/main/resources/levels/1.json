@@ -3,10 +3,10 @@
   "moves": 25,
   "score": 100,
   "colors": {
-    "ORANGE": 10,
-    "BLUE": 10,
-    "GREEN": 10,
-    "ROSE": 10,
-    "PURPLE": 10
+    "ORANGE": 15,
+    "BLUE": 15,
+    "GREEN": 15,
+    "ROSE": 15,
+    "PURPLE": 15
   }
 }

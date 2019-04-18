@@ -5,6 +5,8 @@ import fr.kaeios.candycrush.game.animations.CandyComboAnimation;
 import fr.kaeios.candycrush.game.elements.CandyLevel;
 import fr.kaeios.candycrush.manager.CandyGameManager;
 import fr.kaeios.candycrush.manager.CandyLevelManager;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,6 +14,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.stream.IntStream;
 
 public final class CandyGameListener implements Listener {
 
@@ -41,13 +46,21 @@ public final class CandyGameListener implements Listener {
         final ItemStack clicked = event.getCurrentItem();
         if(clicked == null) return;
         event.setCancelled(true);
-        // Only allow click on top inventory
         if(!event.getClickedInventory().equals(player.getOpenInventory().getTopInventory())) return;
+        // Only allow click on top inventory
         final CandyGame game = games.getGame(player.getUniqueId());
+        final int slot = event.getSlot();
+        if(clicked.getItemMeta().hasEnchant(Enchantment.DAMAGE_ALL)){
+            final ItemMeta meta = clicked.getItemMeta();
+            meta.removeEnchant(Enchantment.DAMAGE_ALL);
+            clicked.setItemMeta(meta);
+            final int column = slot%9;
+            IntStream.range(0, 6).forEach(row -> menu.setItem(row*9+column, clicked));
+            new CandyComboAnimation(game).start();
+            return;
+        }
         // Check if player can play
         if(!game.isPlayable()) return;
-        // Check if game need to swap or to save the current slot
-        final int slot = event.getSlot();
         // If player need to swap save clicked slot
         if(game.getSlotToSwap() == -1){
             game.setSlotToSwap(slot);
