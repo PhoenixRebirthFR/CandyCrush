@@ -1,5 +1,6 @@
 package fr.kaeios.candycrush.game.animations;
 
+import fr.kaeios.candycrush.CandyStats;
 import fr.kaeios.candycrush.game.CandyGame;
 import fr.kaeios.candycrush.game.elements.CandyType;
 import org.bukkit.Bukkit;
@@ -27,7 +28,10 @@ public class CandyComboAnimation extends CandyAnimation {
         // If no combos are possibles
         if(game.getPossibleCombos().size() == 0){
             // Check lose
-            if(!game.hasMoves() && !game.isWin()) new CandyLoseAnimation(game).start();
+            if(!game.hasMoves() && !game.isWin()){
+                new CandyLoseAnimation(game).start();
+                game.updateStats();
+            }
             // Stop animation
             stop();
             return;

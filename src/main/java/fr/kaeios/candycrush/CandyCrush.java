@@ -4,6 +4,7 @@ import fr.kaeios.candycrush.commands.CandyCrushCommand;
 import fr.kaeios.candycrush.listeners.CandyGameListener;
 import fr.kaeios.candycrush.manager.CandyGameManager;
 import fr.kaeios.candycrush.manager.CandyLevelManager;
+import fr.kaeios.candycrush.manager.FileManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,6 +14,7 @@ public final class CandyCrush extends JavaPlugin {
     private static CandyCrush instance;
     private CandyGameManager games;
     private CandyLevelManager levels;
+    private final FileManager fileManager = new FileManager();
 
     @Override
     public void onEnable() {
@@ -46,5 +48,9 @@ public final class CandyCrush extends JavaPlugin {
      */
     public CandyLevelManager getLevels() {
         return levels;
+    }
+
+    public FileManager getFileManager() {
+        return fileManager;
     }
 }

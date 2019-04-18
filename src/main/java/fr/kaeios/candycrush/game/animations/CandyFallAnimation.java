@@ -26,6 +26,7 @@ public class CandyFallAnimation extends CandyAnimation{
             // Check win
             if(game.isWin()){
                 new CandyWinAnimation(game).start();
+                game.updateStats();
                 game.setPlayable(false);
                 stop();
                 return;

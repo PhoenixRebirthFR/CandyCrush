@@ -64,12 +64,8 @@ public class CandyLevelManager {
         int level = 1;
         // While level exist as file
         while(isLevelFile(level)){
-            try {
-                // Load level file
-                loadLevelFromFile(level);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            // Load level file
+            loadLevelFromFile(level);
             level++;
         }
     }
@@ -80,19 +76,12 @@ public class CandyLevelManager {
         return file.exists();
     }
 
-    private void loadLevelFromFile(final int number) throws IOException {
+    private void loadLevelFromFile(final int number) {
         // Get file
         final File file = new File(CandyCrush.getInstance().getDataFolder(), "levels/"+ number +".json");
         if(!file.exists()) return;
-        // Read content
-        final BufferedReader reader = new BufferedReader(new FileReader(file));
-        final StringBuilder sb = new StringBuilder();
-        String line;
-        // put all lines together
-        while((line = reader.readLine()) != null) sb.append(line);
-        reader.close();
-        // Convert json text to CandyLevel object
-        gson.fromJson(sb.toString(), CandyLevel.class);
+        // Read content & Convert json text to CandyLevel object
+        gson.fromJson(CandyCrush.getInstance().getFileManager().getTextFromFile(file), CandyLevel.class);
     }
 
     public List<CandyLevel> getLevels(){

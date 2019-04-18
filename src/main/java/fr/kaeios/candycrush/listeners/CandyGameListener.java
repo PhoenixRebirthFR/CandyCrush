@@ -72,15 +72,17 @@ public final class CandyGameListener implements Listener {
         final ItemStack item = event.getCurrentItem();
         if(item == null) return;
         if(!menu.getName().equalsIgnoreCase("§cLevels §e- §cCandyCrush")) return;
+        final Player player = (Player) event.getWhoClicked();
+        if(!event.getClickedInventory().equals(player.getOpenInventory().getTopInventory())) return;
         // Cancel action
         event.setCancelled(true);
         // Get level number and launch it if exist
         final int level = item.getAmount();
-        if(!levels.isLevel(level)) return;
+        if(!levels.isLevel(level) || item.getDurability() != 5) return;
         final CandyLevel candyLevel = levels.getCandyLevel(level);
         // Close inventory to prevent InventoryCloseEvent to stop the game
         event.getWhoClicked().closeInventory();
-        new CandyGame(event.getWhoClicked().getUniqueId(), candyLevel).start();
+        new CandyGame(player.getUniqueId(), candyLevel).start();
     }
 
 }

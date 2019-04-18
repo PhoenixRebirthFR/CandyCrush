@@ -1,6 +1,7 @@
 package fr.kaeios.candycrush.game;
 
 import fr.kaeios.candycrush.CandyCrush;
+import fr.kaeios.candycrush.CandyStats;
 import fr.kaeios.candycrush.game.animations.CandyAnimation;
 import fr.kaeios.candycrush.game.animations.CandyFallAnimation;
 import fr.kaeios.candycrush.game.elements.CandyCombo;
@@ -154,6 +155,10 @@ public class CandyGame {
      * Start the game
      */
     public void start(){
+        // Update stats
+        final CandyStats stats = CandyStats.getStats(uuid);
+        stats.setPlayed(stats.getPlayed()+1);
+        stats.save();
         CandyCrush.getInstance().getGames().addGame(this);
         // Open menu
         getPlayer().openInventory(menu);
@@ -447,7 +452,24 @@ public class CandyGame {
         });
     }
 
-     /**
+    /**
+     * Update players stats
+     */
+    public void updateStats(){
+        final CandyStats stats = CandyStats.getStats(uuid);
+        final int total = getTotalPoints();
+        if(stats.getBest() < getTotalPoints()) stats.setBest(total);
+        stats.setTotal(stats.getTotal()+total);
+        if(isWin()){
+            stats.setWin(stats.getWin()+1);
+            if(level.getLevel() == stats.getCurrent()) stats.setCurrent(stats.getCurrent()+1);
+        } else {
+            stats.setLose(stats.getLose()+1);
+        }
+        stats.save();
+    }
+
+    /**
       * Convert row & column to slot number
       */
     private int getSlotAt(final int row, final int column){
@@ -483,7 +505,6 @@ public class CandyGame {
 
     private void updateTitle(){
         EntityPlayer ep = ((CraftPlayer) getPlayer()).getHandle();
-        System.out.println(level.getMoves()-moves);
         PacketPlayOutOpenWindow packet = new PacketPlayOutOpenWindow(ep.activeContainer.windowId, "minecraft:chest", new ChatMessage("§eLevel - "+ level.getLevel() +"   §c"+ (level.getMoves()-moves) +" coups"), getPlayer().getOpenInventory().getTopInventory().getSize());
         ep.playerConnection.sendPacket(packet);
         ep.updateInventory(ep.activeContainer);
