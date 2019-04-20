@@ -1,0 +1,6 @@
+name: CandyCrush
+version: ${project.version}
+main: ${mainClass}
+author: ${author}
+commands:
+  candycrush:

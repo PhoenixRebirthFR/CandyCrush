@@ -1,6 +1,0 @@
-name: CandyCrush
-version: ${project.version}
-main: fr.kaeios.candycrush.CandyCrush
-authors: [Kaeios]
-commands:
-  candycrush:

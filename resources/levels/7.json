@@ -1,0 +1,12 @@
+{
+  "level": 7,
+  "moves": 15,
+  "score": 60,
+  "colors": {
+    "ORANGE": 15,
+    "BLUE": 10,
+    "GREEN": 10,
+    "ROSE": 15,
+    "PURPLE": 15
+  }
+}
