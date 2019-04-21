@@ -9,7 +9,7 @@ public enum CandyType {
 
     NONE(0, "NONE"),
     GREEN(10, "§aVert"),
-    ROSE(9, "§cRose"),
+    ROSE(9, "§dRose"),
     PURPLE(5, "§5Violet"),
     BLUE(12, "§bBleu"),
     ORANGE(14, "§6Orange");
