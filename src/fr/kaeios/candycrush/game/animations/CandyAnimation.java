@@ -48,7 +48,7 @@ public abstract class CandyAnimation implements Runnable{
      * Check if animation should stop
      * @return true if it should stop
      */
-    public boolean shouldStop(){
+    protected boolean shouldStop(){
         return game.isStopped();
     }
 

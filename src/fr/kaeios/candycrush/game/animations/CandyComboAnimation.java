@@ -1,10 +1,8 @@
 package fr.kaeios.candycrush.game.animations;
 
-import fr.kaeios.candycrush.CandyStats;
 import fr.kaeios.candycrush.game.CandyGame;
 import fr.kaeios.candycrush.game.elements.CandyType;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;

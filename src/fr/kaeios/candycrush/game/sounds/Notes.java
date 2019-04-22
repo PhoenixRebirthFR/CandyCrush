@@ -1,7 +1,5 @@
 package fr.kaeios.candycrush.game.sounds;
 
-import org.bukkit.Sound;
-
 public enum Notes {
 
     // Each notes playable

@@ -5,7 +5,6 @@ import fr.kaeios.candycrush.game.animations.CandyComboAnimation;
 import fr.kaeios.candycrush.game.elements.CandyLevel;
 import fr.kaeios.candycrush.manager.CandyGameManager;
 import fr.kaeios.candycrush.manager.CandyLevelManager;
-import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
