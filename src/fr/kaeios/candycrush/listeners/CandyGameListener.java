@@ -50,7 +50,7 @@ public final class CandyGameListener implements Listener {
         // Only allow click on top inventory
         final CandyGame game = games.getGame(player.getUniqueId());
         final int slot = event.getSlot();
-        if(clicked.getItemMeta().hasEnchant(Enchantment.DAMAGE_ALL)){
+        if(clicked.hasItemMeta() && clicked.getItemMeta().hasEnchant(Enchantment.DAMAGE_ALL)){
             final ItemMeta meta = clicked.getItemMeta();
             meta.removeEnchant(Enchantment.DAMAGE_ALL);
             clicked.setItemMeta(meta);
