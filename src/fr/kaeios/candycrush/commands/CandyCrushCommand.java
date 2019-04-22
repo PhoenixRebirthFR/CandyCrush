@@ -3,6 +3,7 @@ package fr.kaeios.candycrush.commands;
 import fr.kaeios.candycrush.CandyCrush;
 import fr.kaeios.candycrush.CandyStats;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -37,7 +38,11 @@ public final class CandyCrushCommand implements CommandExecutor {
             inventory.setItem(49, stat);
             // Fill inventory with levels icon
             CandyCrush.getInstance().getLevels().getLevels().forEach(level ->{
-                inventory.setItem(level.getLevel()-1, new ItemStack(Material.STAINED_CLAY, level.getLevel(), (short) (stats.getCurrent() >= level.getLevel() ? 5 : 14)));
+                final ItemStack icon = new ItemStack(Material.STAINED_CLAY, level.getLevel(), (short) (stats.getCurrent() >= level.getLevel() ? 5 : 14));
+                final ItemMeta iconMeta = icon.getItemMeta();
+                iconMeta.setDisplayName(((icon.getDurability() == 5) ? ChatColor.GREEN : ChatColor.RED) + "Niveau "+ level.getLevel());
+                icon.setItemMeta(iconMeta);
+                inventory.setItem(level.getLevel()-1, icon);
             });
             // Open inventory
             ((Player) sender).openInventory(inventory);
