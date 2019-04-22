@@ -69,7 +69,7 @@ public class CandyComboAnimation extends CandyAnimation {
         }else if(step%2 == 1){
             // Remove bright item
             IntStream.range(0, 54).forEach(slot ->{
-                if(menu.getItem(slot) != null && menu.getItem(slot).getItemMeta().hasEnchant(Enchantment.ARROW_FIRE)){
+                if(menu.getItem(slot) != null && menu.getItem(slot).hasItemMeta() && menu.getItem(slot).getItemMeta().hasEnchant(Enchantment.ARROW_FIRE)){
                     game.addPoint(CandyType.getTypeOf(game.getMenu().getItem(slot)));
                     game.updateStatsItem();
                     menu.setItem(slot, null);
