@@ -61,6 +61,8 @@ public class CandyGame {
      */
     public void setSlotToSwap(int slotToSwap) {
         this.slotToSwap = slotToSwap;
+        if(slotToSwap == -1) return;
+        menu.getItem(slotToSwap).setAmount(2);
     }
 
     /**
@@ -266,6 +268,7 @@ public class CandyGame {
     public void swap(final int slot){
         final ItemStack slotItem = menu.getItem(slot);
         final ItemStack swapItem = menu.getItem(slotToSwap);
+        swapItem.setAmount(1);
         menu.setItem(slot, swapItem);
         menu.setItem(slotToSwap, slotItem);
     }
