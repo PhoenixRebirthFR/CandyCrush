@@ -451,7 +451,12 @@ public class CandyGame {
      */
     public void fillTopGaps(){
         IntStream.range(0, 9).forEach(slot ->{
-            if(menu.getItem(slot) == null) menu.setItem(slot, new ItemStack(Material.INK_SACK, 1, (short) CandyType.getRandomCandyType().getColor()));
+            if(menu.getItem(slot) != null) return;
+            final ItemStack item = new ItemStack(Material.INK_SACK, 1, (short) CandyType.getRandomCandyType().getColor());
+            final ItemMeta meta = item.getItemMeta();
+            meta.setDisplayName("§f ");
+            item.setItemMeta(meta);
+            menu.setItem(slot, item);
         });
     }
 
@@ -481,7 +486,7 @@ public class CandyGame {
 
     /**
      * Get total amount of points
-     * @return
+     * @return score of the game
      */
     private int getTotalPoints(){
         int total = 0;
