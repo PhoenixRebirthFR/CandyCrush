@@ -210,13 +210,14 @@ public class CandyGame {
         lines.add("§c ");
         // Load score for each type
         for(final CandyType type : points.keySet()){
-            final String line = type.getDisplay() + "§7: §c" + points.get(type) +"/"+ level.getCandiesNeeded(type);
+            final int point = points.get(type);
+            final String line = type.getDisplay() + "§7: "+ (point >= level.getCandiesNeeded(type) ? "§a" : "§c") + point +"/"+ level.getCandiesNeeded(type);
             // Add to global score
             total += points.get(type);
             lines.add(line);
         }
         // Set global score as name & types scores as lore
-        meta.setDisplayName("§cPoints §7("+ total+"/"+level.getWinScore() +")");
+        meta.setDisplayName("§cPoints §7("+ (total >= level.getWinScore() ? "§a" : "§c") +  total+"/"+level.getWinScore() +"§7)");
         meta.setLore(lines);
         item.setItemMeta(meta);
         // Put item in inventory
