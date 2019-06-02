@@ -23,6 +23,7 @@ public final class CandyCrushCommand implements CommandExecutor {
                 if(block == null || block.getType().equals(Material.AIR)) continue;
                 if(block.getType().equals(Material.CAKE_BLOCK)){
                     CandyCrush.getInstance().getCandyConfig().setCakeLocation(block.getLocation());
+                    sender.sendMessage("§8[§eCandyCrush§8] §cLe cake a bien été placé !");
                     return true;
                 }
             }
