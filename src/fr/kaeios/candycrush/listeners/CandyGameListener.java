@@ -1,16 +1,21 @@
 package fr.kaeios.candycrush.listeners;
 
+import fr.kaeios.candycrush.CandyCrush;
 import fr.kaeios.candycrush.game.CandyGame;
 import fr.kaeios.candycrush.game.animations.CandyComboAnimation;
 import fr.kaeios.candycrush.game.elements.CandyLevel;
 import fr.kaeios.candycrush.manager.CandyGameManager;
 import fr.kaeios.candycrush.manager.CandyLevelManager;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -95,6 +100,16 @@ public final class CandyGameListener implements Listener {
         // Close inventory to prevent InventoryCloseEvent to stop the game
         event.getWhoClicked().closeInventory();
         new CandyGame(player.getUniqueId(), candyLevel).start();
+    }
+
+    @EventHandler
+    public void onClickCake(final PlayerInteractEvent event){
+        final Block clicked = event.getClickedBlock();
+        // Check if clicked block is the correct cake
+        if(!event.getAction().equals(Action.RIGHT_CLICK_BLOCK) || !clicked.getType().equals(Material.CAKE_BLOCK)) return;
+        if(!clicked.getLocation().equals(CandyCrush.getInstance().getCandyConfig().getCakeLocation())) return;
+        // Open menu
+        CandyCrush.getInstance().openLevelMenu(event.getPlayer());
     }
 
 }
