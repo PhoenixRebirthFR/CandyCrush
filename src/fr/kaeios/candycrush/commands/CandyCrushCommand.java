@@ -29,7 +29,7 @@ public final class CandyCrushCommand implements CommandExecutor {
             }
             sender.sendMessage("§8[§eCandyCrush§8] §cVous devez regarder un gateau pour faire cette commande.");
         }else{
-            sender.sendMessage("§8[§eCandyCrush§8] §c/candycrush setcake &epour placer le cake.");
+            sender.sendMessage("§8[§eCandyCrush§8] §c/candycrush setcake §epour placer le cake.");
         }
         return true;
     }
