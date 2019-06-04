@@ -249,7 +249,11 @@ public class CandyGame {
      */
     public boolean canSwap(final int slot){
         // Check if slot is next to swap slot
-        if(!isNextTo(slot, slotToSwap)) return false;
+        if(!isNextTo(slot, slotToSwap)){
+            // Set amount back to 1
+            menu.getItem(slotToSwap).setAmount(1);
+            return false;
+        }
         // Try to move and look for combo
         swap(slot);
         if(isCombo(slot) || isCombo(slotToSwap)){
