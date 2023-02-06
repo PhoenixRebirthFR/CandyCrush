@@ -12,6 +12,7 @@ A chaque coup, il est possible d'échanger de place deux bonbons si cet
 
 - /candycrush - Ouvre le mini-jeu
 - /candycrush setcake - Défini le gâteau visé comme ouvrant le mini-jeu lorsque l'on clique dessus
+  (nécessite la permission candycrush.setcake)
 
 ---
 
