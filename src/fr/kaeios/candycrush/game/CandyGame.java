@@ -8,12 +8,8 @@ import fr.kaeios.candycrush.game.elements.CandyCombo;
 import fr.kaeios.candycrush.game.elements.CandyLevel;
 import fr.kaeios.candycrush.game.elements.CandyType;
 import fr.kaeios.candycrush.game.sounds.CandyMusic;
-import net.minecraft.server.v1_10_R1.ChatMessage;
-import net.minecraft.server.v1_10_R1.EntityPlayer;
-import net.minecraft.server.v1_10_R1.PacketPlayOutOpenWindow;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_10_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -79,7 +75,7 @@ public class CandyGame {
      */
     public void setMoves(int moves) {
         this.moves = moves;
-        updateTitle();
+//        updateTitle();
     }
 
     /**
@@ -517,14 +513,14 @@ public class CandyGame {
     }
 
     // Update title of inventory
-    private void updateTitle(){
-        EntityPlayer ep = ((CraftPlayer) getPlayer()).getHandle();
-        // Create new inventory with packet
-        PacketPlayOutOpenWindow packet = new PacketPlayOutOpenWindow(ep.activeContainer.windowId, "minecraft:chest", new ChatMessage("§eLevel - "+ level.getLevel() +"   §c"+ (level.getMoves()-moves) +" coups"), getPlayer().getOpenInventory().getTopInventory().getSize());
-        // Send packet to player
-        ep.playerConnection.sendPacket(packet);
-        // Fill client side inventory
-        ep.updateInventory(ep.activeContainer);
-    }
+//    private void updateTitle(){
+//        EntityPlayer ep = ((CraftPlayer) getPlayer()).getHandle();
+//        // Create new inventory with packet
+//        PacketPlayOutOpenWindow packet = new PacketPlayOutOpenWindow(ep.activeContainer.windowId, "minecraft:chest", new ChatMessage("§eLevel - "+ level.getLevel() +"   §c"+ (level.getMoves()-moves) +" coups"), getPlayer().getOpenInventory().getTopInventory().getSize());
+//        // Send packet to player
+//        ep.playerConnection.sendPacket(packet);
+//        // Fill client side inventory
+//        ep.updateInventory(ep.activeContainer);
+//    }
 
 }
